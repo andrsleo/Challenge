@@ -5,7 +5,12 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.service.general.country.dto.CurrencyDTO;
+import com.service.general.country.dto.ExchangeRateDTO;
+import com.sun.org.apache.bcel.internal.generic.DCONST;
 import org.springframework.stereotype.Service;
 
 import com.service.general.country.dto.GeneralCountryDTO;
@@ -14,7 +19,7 @@ import com.service.general.country.dto.ResultInfoDTO;
 @Service
 public class ResultInfoFactory {
 	
-	public ResultInfoDTO newResultInfo(GeneralCountryDTO[] generalCountryDTO, String ipLocation, GeneralCountryDTO[] generalCountryBa) {
+	public ResultInfoDTO newResultInfo(GeneralCountryDTO[] generalCountryDTO, String ipLocation, GeneralCountryDTO[] generalCountryBa, ExchangeRateDTO infoRates) {
 		ResultInfoDTO res = new ResultInfoDTO();
 		
 		res.setIp(ipLocation);
@@ -32,10 +37,21 @@ public class ResultInfoFactory {
 		res.setHours(totalTime);
 		Double distance = distanceKm(generalCountryBa[0].getLatlng().get(0), generalCountryDTO[0].getLatlng().get(0), generalCountryBa[0].getLatlng().get(1), generalCountryDTO[0].getLatlng().get(1));
 		res.setDistanceBa(distance.intValue() + " kms ("+ generalCountryBa[0].getLatlng().get(0) + ", " + generalCountryBa[0].getLatlng().get(1) + ") a (" + generalCountryDTO[0].getLatlng().get(0) + ", " + generalCountryDTO[0].getLatlng().get(1) + ")");
-		
+
+		ObjectMapper oMapper = new ObjectMapper();
+		Map<String, Object> map = oMapper.convertValue(infoRates.getRates(), Map.class);
+		// System.out.println(map);
+		List<String> totalCurrencies = new ArrayList<String>();
+		for (CurrencyDTO currencyObject : generalCountryDTO[0].getCurrencies()) {
+			//System.out.println(map.get(currencyObject.getCode()));
+			totalCurrencies.add(currencyObject.getCode() + "(1 EUR = " + map.get(currencyObject.getCode()) + " " +  currencyObject.getSymbol() + ")");
+		}
+
+		res.setMoney(totalCurrencies);
+		//System.out.println(totalCurrencies);
 		return res;
 	}
-	
+
 	private double distanceKm(double lat1, double lat2, double lng1, double lng2) {
 		
 		double radioTierra = 6371;

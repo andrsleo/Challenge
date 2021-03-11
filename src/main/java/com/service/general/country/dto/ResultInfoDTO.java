@@ -11,7 +11,7 @@ public class ResultInfoDTO {
 	private List<String> languages;
 	private String hours;
 	private String distanceBa;
-	private String money;
+	private List<String> money;
 	public String getIp() {
 		return ip;
 	}
@@ -54,10 +54,10 @@ public class ResultInfoDTO {
 	public void setDistanceBa(String distanceBa) {
 		this.distanceBa = distanceBa;
 	}
-	public String getMoney() {
+	public List<String> getMoney() {
 		return money;
 	}
-	public void setMoney(String money) {
+	public void setMoney(List<String> money) {
 		this.money = money;
 	}
 	

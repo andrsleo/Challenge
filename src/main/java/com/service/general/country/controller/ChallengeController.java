@@ -24,16 +24,4 @@ public class ChallengeController {
         return ResponseEntity.ok(challengeService.getCountryService(ipLocation));
 		
 	}
-	
-//	@CrossOrigin(origins = "*", allowedHeaders = "*")
-//	@GetMapping(GET_COUNTRY_BY_IP)
-//	public ResponseEntity<Object> getCountry(@RequestParam String ipLocation){
-//		try {
-//			return ResponseEntity.ok(challengeService.getCountryService(ipLocation));
-//		} catch (Exception e) {
-//			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "error get country", e);
-//		}
-//		
-//	}
-
 }
