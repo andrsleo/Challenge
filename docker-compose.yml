@@ -1,0 +1,14 @@
+#Docker compose para correr la imagen del proyecto springboot junto con la imagen de redis para la consulta de información
+version: '3'
+services:
+  app:
+    image: redisapp-server:v1
+    ports:
+      - "8080:8080"
+    volumes:
+      - ~/docker/redis:/redis-service/logs
+    network_mode: "host"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"

@@ -7,12 +7,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.general.country.dto.CurrencyDTO;
 import com.service.general.country.dto.ExchangeRateDTO;
-import com.sun.org.apache.bcel.internal.generic.DCONST;
-import org.springframework.stereotype.Service;
-
 import com.service.general.country.dto.GeneralCountryDTO;
 import com.service.general.country.dto.ResultInfoDTO;
 
@@ -37,6 +36,7 @@ public class ResultInfoFactory {
 		res.setHours(totalTime);
 		Double distance = distanceKm(generalCountryBa[0].getLatlng().get(0), generalCountryDTO[0].getLatlng().get(0), generalCountryBa[0].getLatlng().get(1), generalCountryDTO[0].getLatlng().get(1));
 		res.setDistanceBa(distance.intValue() + " kms ("+ generalCountryBa[0].getLatlng().get(0) + ", " + generalCountryBa[0].getLatlng().get(1) + ") a (" + generalCountryDTO[0].getLatlng().get(0) + ", " + generalCountryDTO[0].getLatlng().get(1) + ")");
+		res.setDistance(distance.intValue());
 
 		ObjectMapper oMapper = new ObjectMapper();
 		Map<String, Object> map = oMapper.convertValue(infoRates.getRates(), Map.class);
@@ -52,7 +52,7 @@ public class ResultInfoFactory {
 		return res;
 	}
 
-	private double distanceKm(double lat1, double lat2, double lng1, double lng2) {
+	public double distanceKm(double lat1, double lat2, double lng1, double lng2) {
 		
 		double radioTierra = 6371;
         double dLat = Math.toRadians(lat2 - lat1);  

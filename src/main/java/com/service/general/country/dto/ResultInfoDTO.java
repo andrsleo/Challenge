@@ -1,9 +1,14 @@
 package com.service.general.country.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class ResultInfoDTO {
+public class ResultInfoDTO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String ip;
 	private Date actualDate;
 	private	String country;
@@ -11,6 +16,7 @@ public class ResultInfoDTO {
 	private List<String> languages;
 	private String hours;
 	private String distanceBa;
+	private int distance;
 	private List<String> money;
 	public String getIp() {
 		return ip;
@@ -60,9 +66,11 @@ public class ResultInfoDTO {
 	public void setMoney(List<String> money) {
 		this.money = money;
 	}
-	
-	
-	
-	
+	public int getDistance() {
+		return distance;
+	}
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 
 }
